@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IOeIjBoJABbLMV2pbeqdEqgNcmQkcJGXrG/b5aULa5JaXl32EBy5wF3ChzY6JT/XNCLuQ025RrdH8nL6JC1q0w==",
+  "dgSpecHash": "+P4FlRF9LkaZfOIXvjX9myWcupFKD9e5fCmNbuful+O1M368aBvJbPPEADPMAHW+NhuKrywGBY9EoIVIfPuyhQ==",
   "success": true,
-  "projectFilePath": "G:\\Siddhant\\NewUpdateProject\\19July2024\\WebApi\\StoreManagementApi\\StoreManagementApi\\StoreManagementApi.csproj",
+  "projectFilePath": "g:\\Siddhant\\StoreApp\\AngularProject\\StoreManagementApi\\StoreManagementApi\\StoreManagementApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\6.0.35\\microsoft.aspnetcore.jsonpatch.6.0.35.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\6.0.35\\microsoft.aspnetcore.mvc.newtonsoftjson.6.0.35.nupkg.sha512",

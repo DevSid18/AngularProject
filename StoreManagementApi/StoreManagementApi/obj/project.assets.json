@@ -1130,11 +1130,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\Siddhant\\NewUpdateProject\\19July2024\\WebApi\\StoreManagementApi\\StoreManagementApi\\StoreManagementApi.csproj",
+      "projectUniqueName": "G:\\Siddhant\\StoreApp\\AngularProject\\StoreManagementApi\\StoreManagementApi\\StoreManagementApi.csproj",
       "projectName": "StoreManagementApi",
-      "projectPath": "G:\\Siddhant\\NewUpdateProject\\19July2024\\WebApi\\StoreManagementApi\\StoreManagementApi\\StoreManagementApi.csproj",
+      "projectPath": "G:\\Siddhant\\StoreApp\\AngularProject\\StoreManagementApi\\StoreManagementApi\\StoreManagementApi.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "G:\\Siddhant\\NewUpdateProject\\19July2024\\WebApi\\StoreManagementApi\\StoreManagementApi\\obj\\",
+      "outputPath": "G:\\Siddhant\\StoreApp\\AngularProject\\StoreManagementApi\\StoreManagementApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
