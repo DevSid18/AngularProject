@@ -7,7 +7,7 @@
     <form class="form" [formGroup]="CustomerForm">
         <div class="container-fluid p-3 w-50" [ngSwitch]="header">
             <div class="registrationCss text-white p-3 text-center" *ngIf="header?.toLowerCase()=='register'">
-                <h3 class="mb-2 text-uppercase align-middle">Registration Here</h3>
+                <h3 class="mb-2 text-uppercase align-middle">User Registration Here</h3>
             </div>
             <div class="updateCss text-white p-3 text-center" *ngIf="header?.toLowerCase()=='edit'">
                 <h3 class="mb-2 text-uppercase align-middle">User Update Here</h3>
