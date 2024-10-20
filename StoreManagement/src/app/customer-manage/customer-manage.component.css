@@ -1,0 +1,49 @@
+.labelCss {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+.abc{
+    border:1px solid black;
+}
+.registrationCss
+{
+    font-weight: 800;
+    font-family: "Montserrat", sans-serif;
+    background: radial-gradient(circle, rgba(138,215,40,1) 0%, rgb(55, 121, 9) 83%);
+}
+.updateCss
+{
+    font-family: "Montserrat", sans-serif;
+    background: radial-gradient(circle, rgba(255,248,28,1) 0%, rgba(255,196,0,1) 83%);
+}
+.deleteCss
+{
+    font-family: "Montserrat", sans-serif;
+    background: radial-gradient(circle, rgba(255,28,28,1) 0%, rgba(132,0,0,1) 83%);
+}
+.viewCss
+{
+    font-family: "Montserrat", sans-serif;
+    background: radial-gradient(circle, rgba(148,0,255,1) 0%, rgba(88,0,132,1) 83%);
+}
+.regBodyCss
+{
+    background-color:rgb(55, 121, 9);
+}
+.upgdBodyCss
+{
+    background-color: rgb(254 195 0);
+}
+.delBodyCss
+{
+    background-color: rgba(132,0,0,1);
+}
+.viewBodyCss
+{
+    background-color:rgba(88,0,132,1);
+}
+
+
+

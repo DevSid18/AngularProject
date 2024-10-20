@@ -1,0 +1,25 @@
+.hover-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.hover-overlay .mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-clip: padding-box;
+  pointer-events: none;
+}
+
+.header {
+  font-family: "Montserrat", sans-serif;
+}
+
+.customColors {
+  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* For Safari */
+}

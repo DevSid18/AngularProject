@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+</style>
+
+<body class={{this.bodyCss}}>
+    <form class="form" [formGroup]="CustomerForm">
+        <div class="container-fluid p-3 w-50" [ngSwitch]="header">
+            <div class="registrationCss text-white p-3 text-center" *ngIf="header?.toLowerCase()=='register'">
+                <h3 class="mb-2 text-uppercase align-middle">Registration Here</h3>
+            </div>
+            <div class="updateCss text-white p-3 text-center" *ngIf="header?.toLowerCase()=='edit'">
+                <h3 class="mb-2 text-uppercase align-middle">User Update Here</h3>
+            </div>
+            <div class="deleteCss text-white p-3 text-center" *ngIf="header?.toLowerCase()=='delete'">
+                <h3 class="mb-2 text-uppercase align-middle">User Stop Service Here</h3>
+            </div>
+            <div class="viewCss text-white p-3 text-center" *ngIf="header?.toLowerCase()=='view'">
+                <h3 class="mb-2 text-uppercase align-middle">User Detail</h3>
+            </div>
+            <div class="shadow-lg p-3 mb-5 bg-white rounded ">
+                <div class="row">
+                    <div class="form-floating  col">
+                        <!-- <input type="number" id="customerId" formControlName="customerId"> -->
+                        <label for="firstName" class="labelCss">First Name</label>
+                        <input type="text" class="form-control" id="firstName" required formControlName="firstName">
+                    </div>
+                    <div class="form-floating col">
+                        <label for="middleName" class="labelCss">Middle Name</label>
+                        <input type="text" class="form-control" id="middleName" formControlName="middleName">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-floating  col">
+                        <label for="lastName" class="labelCss">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" formControlName="lastName">
+                    </div>
+                    <div class="form-floating  col">
+                        <label for="Email" class="labelCss">Email</label>
+                        <input type="text" class="form-control" id="Email" formControlName="email">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-floating col">
+                        <label for="Contact" class="labelCss">Contact</label>
+                        <input type="text" class="form-control" id="Contact" formControlName="contact">
+                    </div>
+                    <div class="form-floating col">
+                        <label for="PhyAddress" class="labelCss">Phy.Address</label>
+                        <input type="text" class="form-control" id="PhyAddress" formControlName="phyAddress">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="form-floating col">
+                        <input type="hidden" class="form-control" id="customerId" formControlName="customerId">
+                        <input type="hidden" class="form-control" id="action" formControlName="action">
+                    </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-center ">
+                    <div class="">
+                        <button type="submit" class="btn btn-success text-uppercase" (click)="CustomerAction()"
+                            *ngIf="header=='register'">Save</button>
+                        <button type="submit" class="btn btn-success text-uppercase" (click)="CustomerAction()"
+                            *ngIf="header=='edit'">Update</button>
+                        <button type="submit" class="btn btn-success text-uppercase" (click)="CustomerAction()"
+                            *ngIf="header=='delete'">Deactive</button>
+                    </div>
+                    <div class="ml-1">
+                        <button class="btn btn-danger text-uppercase" (click)="RemoveInformation()">Cancle</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>

@@ -1,0 +1,25 @@
+<nav class="">
+    <div class="p-3 bg-white text-white d-flex justify-content-between">
+        <div class="order-1">
+            <button class="btn" (click)="OpenPage('Home')">Home</button>
+        </div>
+        <div class="order-2 p-1 bg-white">
+            <button class="btn btn-success" (click)="OpenPage('AddCustomer')">Add Customer</button>
+            <button class="btn btn-warning ml-2" (click)="OpenPage('showcustomers')">Show Customer</button>
+        </div>
+    </div>
+</nav>
+
+<body>
+    <div class="container-fluid">
+        <router-outlet></router-outlet>    
+    </div>
+</body>
+
+<footer class="bg-white" style="padding: 20px;">
+    <div class="h-25">
+        <!-- Footer content goes here -->
+        <p class="text-center">© sidsuryvanshi18&#64;gmail.com</p>
+    </div>
+</footer>
+
