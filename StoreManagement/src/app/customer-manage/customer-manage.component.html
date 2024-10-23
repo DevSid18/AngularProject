@@ -3,7 +3,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 </style>
 
-<body class={{this.bodyCss}}>
+<body [ngClass]="bodyCss">
     <form class="form" [formGroup]="CustomerForm">
         <div class="container-fluid p-3 w-50" [ngSwitch]="header">
             <div class="registrationCss text-white p-3 text-center" *ngIf="header?.toLowerCase()=='register'">
@@ -67,7 +67,7 @@
                             *ngIf="header=='delete'">Deactive</button>
                     </div>
                     <div class="ml-1">
-                        <button class="btn btn-danger text-uppercase" (click)="RemoveInformation()">Cancle</button>
+                        <button class="btn btn-danger text-uppercase" (click)="RemoveInformation()">Cancel</button>
                     </div>
                 </div>
             </div>

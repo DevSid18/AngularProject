@@ -3,11 +3,22 @@
 
 body{
     background: radial-gradient(circle, rgba(40,159,215,1) 0%, rgba(21,9,121,1) 83%);
+    font-family: "Montserrat", sans-serif;
 }
 .customColors{
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
 }
 .header
+{
+    font-family: "Montserrat", sans-serif;
+}
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: auto;
+    margin-left: auto;
+}
+input
 {
     font-family: "Montserrat", sans-serif;
 }

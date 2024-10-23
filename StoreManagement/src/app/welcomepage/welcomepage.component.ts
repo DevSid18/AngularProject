@@ -21,6 +21,10 @@ export class WelcomepageComponent {
       case 'showcustomers':
         this.router.navigate(['/data-reports']);
         break;
+      case 'commonview':
+        this.router.navigate(['/commonview']);
+        console.log('commonview hit');
+        break;
     }
   }
 }
