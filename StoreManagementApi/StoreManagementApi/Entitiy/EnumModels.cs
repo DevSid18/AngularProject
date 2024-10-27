@@ -5,4 +5,12 @@ namespace StoreManagementApi.Entity
         Success,
         Error        
     }
+    public enum ActoinFlg
+    {
+        SELECT,
+        GETUSER,  
+        INSERT,
+        UPDATE,
+        DELETE
+    }
 }

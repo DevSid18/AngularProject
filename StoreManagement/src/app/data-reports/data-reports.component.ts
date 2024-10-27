@@ -65,22 +65,22 @@ export class DataReportsComponent implements OnInit {
   }
 
   CustomerDetails() {
-    this.customerService.GetAllCustomers().subscribe(data => {
+    this.customerService.GetAllCustomers(0).subscribe(data => {
       this.customerInfos = data;
     });
   }
 
   GetUserInfo(id: number, action?: string) {
-    this.customerService.GetCustomerInfo(id).subscribe(userInfo => {
+    this.customerService.GetAllCustomers(id).subscribe(userInfo => {
       this.router.navigate(['/customer-manage'], {
         queryParams: {
-          id: userInfo.customerId,
-          firstName: userInfo.firstName,
-          middleName: userInfo.middleName,
-          lastName: userInfo.lastName,
-          email: userInfo.email,
-          contact: userInfo.contact,
-          phyAddress: userInfo.phyAddress,
+          id: userInfo[0].customerId,
+          firstName: userInfo[0].firstName,
+          middleName: userInfo[0].middleName,
+          lastName: userInfo[0].lastName,
+          email: userInfo[0].email,
+          contact: userInfo[0].contact,
+          phyAddress: userInfo[0].phyAddress,
           action: action,
         }
       });

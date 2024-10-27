@@ -1,9 +1,4 @@
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
-using StoreManagementApi.Connection;
 using StoreManagementApi.Contracts;
 using StoreManagementApi.Entity;
 
@@ -19,22 +14,13 @@ namespace StoreManagementApi.Controllers
             Customer = _Customer;
         }
         List<CustomerModel> customers = new List<CustomerModel>();
-        DbConnect dbConnection = new DbConnect();
-
-        [HttpGet]
-        [Route("StoreInformation")]
-        public void StoreInformation()
-        {
-
-        }
-
-        [HttpGet]
-        [Route("CustomerDetails")]
-        public IActionResult CustomerDetails()
+        [HttpPost]
+        [Route("CustomerDetails{custId}")]
+        public IActionResult CustomerDetails(int custId)
         {
             try
             {
-                customers = Customer.CustomerDetails();
+                customers = Customer.CustomerDetails(custId);
                 return Ok(customers);
             }
             catch (Exception ex)
@@ -57,18 +43,6 @@ namespace StoreManagementApi.Controllers
                 result = ex.Message;
             }
             return Ok(result);
-        }
-
-        [HttpPost]
-        [Route("GetUserInfo{custId}")]
-        public CustomerModel GetUserInfo(int custId)
-        {
-            CustomerModel customerInfo = new CustomerModel();
-            if (custId > 0)
-            {
-                customerInfo = Customer.GetUserInfo(custId);
-            }
-            return customerInfo;
         }
     }
 }

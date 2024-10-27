@@ -11,11 +11,8 @@ export class CustomerService {
   constructor(private httpService: HttpClient) { }
   private baseUrl = 'https://localhost:7015/Store';
 
-  GetAllCustomers(): Observable<CustInformation[]> {
-    return this.httpService.get<CustInformation[]>(`${this.baseUrl}/CustomerDetails`);
-  }
-  GetCustomerInfo(id: number) {
-    return this.httpService.post<CustInformation>(`${this.baseUrl}/GetUserInfo`+ id,null);
+  GetAllCustomers(id: number): Observable<CustInformation[]> {
+    return this.httpService.post<CustInformation[]>(`${this.baseUrl}/CustomerDetails` + id, null);
   }
   AddCustomer(info: CustInformation): Observable<string> {
     return this.httpService.post<string>(`${this.baseUrl}/AddCustomer`, info).pipe();

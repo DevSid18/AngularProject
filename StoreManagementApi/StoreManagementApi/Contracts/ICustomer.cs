@@ -4,8 +4,7 @@ namespace StoreManagementApi.Contracts
 {
     public interface ICustomer
     {
-        List<CustomerModel> CustomerDetails();
+        List<CustomerModel> CustomerDetails(int custId);
         string AddCustomer(CustomerModel customer);
-        CustomerModel GetUserInfo(int custId);
     }
 }
