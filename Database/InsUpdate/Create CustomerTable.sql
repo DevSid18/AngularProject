@@ -1,4 +1,8 @@
-DROP TABLE CustomerTable
+IF OBJECT_ID('dbo.CustomerTable', 'U') IS NOT NULL
+BEGIN
+    DROP TABLE dbo.CustomerTable;
+END
+GO
 
 USE [StoreManagementDb]
 GO
