@@ -1,5 +1,6 @@
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using Newtonsoft.Json;
 using StoreManagementApi.Contracts;
 using StoreManagementApi.Entity;
@@ -13,59 +14,59 @@ namespace StoreManagementApi.Implimentations
         CommonCls comMethod = new CommonCls();
         string actnFlg = string.Empty;
 
-        public List<CustomerModel> CustomerDetails(int custId)
+        public string? CustomerActions(CustomerModel customer)
         {
-            actnFlg = custId == 0 ? ActoinFlg.SELECT.ToString() : ActoinFlg.GETUSER.ToString();
-            DataTable dataTable = comMethod.getDynamicMethod("USP_CUSTOMERS_ACTIONS", actnFlg, custId);
-            foreach (DataRow dataRow in dataTable.Rows)
-            {
-                customers.Add(new CustomerModel()
-                {
-                    customerId = Convert.ToInt32(dataRow["customerId"]),
-                    firstName = dataRow["firstName"].ToString(),
-                    middleName = dataRow["middleName"].ToString(),
-                    lastName = dataRow["lastName"].ToString(),
-                    email = dataRow["email"].ToString(),
-                    contact = dataRow["contact"].ToString(),
-                    phyAddress = dataRow["phyAddress"].ToString(),
-                });
-            }
-            return customers;
-        }
-        public string AddCustomer(CustomerModel customer)
-        {
-            string result = string.Empty;
             try
             {
-                SqlCommand sqlCmd = comMethod.DynamicMethod("USP_CUSTOMERS_ACTIONS");
-                actnFlg = !string.IsNullOrEmpty(customer?.action) &&
-                customer?.action?.ToLower() == "register" ? ActoinFlg.INSERT.ToString() :
-                customer?.action?.ToLower() == "edit" ? ActoinFlg.UPDATE.ToString() :
-                customer?.action?.ToLower() == "delete" ? ActoinFlg.DELETE.ToString() : string.Empty;
-                sqlCmd.Parameters.AddWithValue("@actionFlg", actnFlg);
-                sqlCmd.Parameters.AddWithValue("@customerId", customer?.customerId);
-                sqlCmd.Parameters.AddWithValue("@firstName", customer?.firstName);
-                sqlCmd.Parameters.AddWithValue("@middleName", customer?.middleName);
-                sqlCmd.Parameters.AddWithValue("@lastName", customer?.lastName);
-                sqlCmd.Parameters.AddWithValue("@email", customer?.email);
-                sqlCmd.Parameters.AddWithValue("@contact", customer?.contact);
-                sqlCmd.Parameters.AddWithValue("@phyAddress", customer?.phyAddress);
-                if (customer?.customerId == 0)
-                    sqlCmd.Parameters.AddWithValue("@createdDate", DateTime.Now);
+                if (!string.IsNullOrEmpty(customer.action))
+                {
+                    SqlCommand sqlCmd = comMethod.DynamicMethod("USP_CUSTOMERS_ACTIONS");
+                    actnFlg = !string.IsNullOrEmpty(customer?.action) &&
+                    customer?.action?.ToLower() == "register" ? ActoinFlg.INSERT.ToString() :
+                    customer?.action?.ToLower() == "edit" ? ActoinFlg.UPDATE.ToString() :
+                    customer?.action?.ToLower() == "delete" ? ActoinFlg.DELETE.ToString() : string.Empty;
+
+                    sqlCmd.Parameters.AddWithValue("@actionFlg", actnFlg);
+                    sqlCmd.Parameters.AddWithValue("@customerId", customer?.customerId);
+                    sqlCmd.Parameters.AddWithValue("@firstName", customer?.firstName);
+                    sqlCmd.Parameters.AddWithValue("@middleName", customer?.middleName);
+                    sqlCmd.Parameters.AddWithValue("@lastName", customer?.lastName);
+                    sqlCmd.Parameters.AddWithValue("@email", customer?.email);
+                    sqlCmd.Parameters.AddWithValue("@contact", customer?.contact);
+                    sqlCmd.Parameters.AddWithValue("@phyAddress", customer?.phyAddress);
+                    if (customer?.customerId == 0)
+                        sqlCmd.Parameters.AddWithValue("@createdDate", DateTime.Now);
+                    else
+                        sqlCmd.Parameters.AddWithValue("@updatedDate", DateTime.Now);
+                    int i = sqlCmd.ExecuteNonQuery();
+                    sqlCmd.Connection.Close();
+                    var result = i > 0 ? "success" : "failed";
+                    customers.Add(new CustomerModel { result = result });
+                }
                 else
-                    sqlCmd.Parameters.AddWithValue("@updatedDate", DateTime.Now);
-                int i = sqlCmd.ExecuteNonQuery();
-                sqlCmd.Connection.Close();
-                if (customer?.customerId == 0)
-                    result = "success";
-                else
-                    result = "success";
+                {
+                    actnFlg = customer.customerId == 0 ? ActoinFlg.SELECT.ToString() : ActoinFlg.GETUSER.ToString();
+                    DataTable dataTable = comMethod.getDynamicMethod("USP_CUSTOMERS_ACTIONS", actnFlg, customer.customerId);
+                    foreach (DataRow dataRow in dataTable.Rows)
+                    {
+                        customers.Add(new CustomerModel()
+                        {
+                            customerId = Convert.ToInt32(dataRow["customerId"]),
+                            firstName = dataRow["firstName"].ToString(),
+                            middleName = dataRow["middleName"].ToString(),
+                            lastName = dataRow["lastName"].ToString(),
+                            email = dataRow["email"].ToString(),
+                            contact = dataRow["contact"].ToString(),
+                            phyAddress = dataRow["phyAddress"].ToString(),
+                        });
+                    }
+                }
             }
             catch (Exception ex)
             {
-                result = ex.Message;
+                customers.Add(new CustomerModel { result = ex.Message });
             }
-            return JsonConvert.SerializeObject(result);
+            return JsonConvert.SerializeObject(customers);
         }
     }
 }

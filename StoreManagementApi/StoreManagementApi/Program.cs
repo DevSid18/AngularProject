@@ -13,7 +13,6 @@ builder.Services.AddScoped<ICustomer, CustomerImplimentation>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -22,9 +21,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
