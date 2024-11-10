@@ -5,11 +5,11 @@ using StoreManagementApi.Connection;
 namespace StoreManagementApi.Implimentations.Common
 {
     public class CommonCls
-    {
+    {        
         DbConnect dbConnection = new DbConnect();
         DataTable dataTable = new DataTable();
         SqlCommand sqlCmd = new SqlCommand();
-
+        
         public SqlCommand DynamicMethod(string spName)
         {
             SqlConnection sqlCon = dbConnection.Connect();

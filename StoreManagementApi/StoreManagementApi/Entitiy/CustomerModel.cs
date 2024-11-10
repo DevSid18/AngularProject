@@ -10,5 +10,6 @@ namespace StoreManagementApi.Entity
         public string? contact { get; set; }
         public string? phyAddress { get; set; }
         public string? action {get;set;}
+        public string? result { get; set; }
     }
 }
