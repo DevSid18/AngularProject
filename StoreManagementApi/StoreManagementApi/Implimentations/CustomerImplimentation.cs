@@ -31,9 +31,18 @@ namespace StoreManagementApi.Implimentations
                     sqlCmd.Parameters.AddWithValue("@firstName", customer?.firstName);
                     sqlCmd.Parameters.AddWithValue("@middleName", customer?.middleName);
                     sqlCmd.Parameters.AddWithValue("@lastName", customer?.lastName);
+                    sqlCmd.Parameters.AddWithValue("@country", customer?.country);
+                    sqlCmd.Parameters.AddWithValue("@state", customer?.state);
+                    sqlCmd.Parameters.AddWithValue("@district", customer?.district);
+                    sqlCmd.Parameters.AddWithValue("@phyAddress", customer?.phyAddress);
                     sqlCmd.Parameters.AddWithValue("@email", customer?.email);
                     sqlCmd.Parameters.AddWithValue("@contact", customer?.contact);
-                    sqlCmd.Parameters.AddWithValue("@phyAddress", customer?.phyAddress);
+                    sqlCmd.Parameters.AddWithValue("@gender", customer?.gender);
+                    sqlCmd.Parameters.AddWithValue("@password", customer?.password);
+                    sqlCmd.Parameters.AddWithValue("@confirmPassword", customer?.confirmPassword);                 
+                    sqlCmd.Parameters.AddWithValue("@isActive", customer?.isActive);
+                    sqlCmd.Parameters.AddWithValue("@action", customer?.action);
+                    sqlCmd.Parameters.AddWithValue("@result", customer?.result);
                     if (customer?.customerId == 0)
                         sqlCmd.Parameters.AddWithValue("@createdDate", DateTime.Now);
                     else
@@ -58,6 +67,13 @@ namespace StoreManagementApi.Implimentations
                             email = dataRow["email"].ToString(),
                             contact = dataRow["contact"].ToString(),
                             phyAddress = dataRow["phyAddress"].ToString(),
+                            gender = dataRow["gender"].ToString(),
+                            password = dataRow["password"].ToString(),
+                            confirmPassword = dataRow["confirmPassword"].ToString(),
+                            country = dataRow["country"].ToString(),
+                            state = dataRow["state"].ToString(),
+                            district = dataRow["district"].ToString(),
+
                         });
                     }
                 }
