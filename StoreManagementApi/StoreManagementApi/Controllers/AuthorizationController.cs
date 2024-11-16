@@ -7,6 +7,9 @@ namespace StoreManagementApi.Controllers
     [ApiController]
     public class AuthorizationController : ControllerBase
     {
-
+        public class Authorization
+        {
+            
+        }
     }
 }
