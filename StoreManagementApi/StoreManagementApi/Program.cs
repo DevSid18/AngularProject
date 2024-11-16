@@ -10,6 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ICustomer, CustomerImplimentation>();
+builder.Services.AddScoped<IAuthorization, AuthorizationCls>();
+
 
 var app = builder.Build();
 
