@@ -57,6 +57,9 @@ import { Router } from '@angular/router';
 export class DataReportsComponent implements OnInit {
 
   customerInfos: CustInformation[] = [];
+  custId: number = 0;
+  action?: string = "";
+  isValidSend: boolean = false;
 
   constructor(private customerService: CustomerService, private router: Router) { }
 
@@ -65,26 +68,39 @@ export class DataReportsComponent implements OnInit {
   }
 
   CustomerDetails() {
-    this.customerService.GetAllCustomers(0).subscribe(data => {
-      this.customerInfos = data;
-    });
-  }
-
-  GetUserInfo(id: number, action?: string) {
-    this.customerService.GetAllCustomers(id).subscribe(userInfo => {
-      this.router.navigate(['/customer-manage'], {
-        queryParams: {
-          id: userInfo[0].customerId,
-          firstName: userInfo[0].firstName,
-          middleName: userInfo[0].middleName,
-          lastName: userInfo[0].lastName,
-          email: userInfo[0].email,
-          contact: userInfo[0].contact,
-          phyAddress: userInfo[0].phyAddress,
-          action: action,
-        }
+    const custInfo: CustInformation = {
+      customerId: this.custId,
+      action: this.action
+    }
+    if (!this.isValidSend) {
+      custInfo.action = '';
+    }
+    if (custInfo.customerId == 0 && custInfo.action == '') {
+      this.customerService.CustomerActions(custInfo).subscribe(data => {
+        this.customerInfos = data;
       });
-    });
+    }
+    else {
+      this.customerService.CustomerActions(custInfo).subscribe(userInfo => {
+        this.router.navigate(['/customer-manage'], {
+          queryParams: {
+            id: userInfo[0].customerId,
+            firstName: userInfo[0].firstName,
+            middleName: userInfo[0].middleName,
+            lastName: userInfo[0].lastName,
+            email: userInfo[0].email,
+            contact: userInfo[0].contact,
+            phyAddress: userInfo[0].phyAddress,
+            action: this.action,
+          }
+        });
+      });
+    }
+  }
+  GetUserInfo(id: number, action?: string) {
+    this.custId = id,
+      this.action = action;
+    this.CustomerDetails();
   }
 }
 

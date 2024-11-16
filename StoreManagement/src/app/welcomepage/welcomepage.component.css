@@ -23,3 +23,21 @@
   -webkit-text-fill-color: transparent;
   /* For Safari */
 }
+
+/* Fade in effect when modal is opened (handled by ngx-bootstrap by default) */
+.fade.in {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Smooth fade-out effect when modal is closed */
+.fade {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Fade-out effect on modal backdrop */
+.modal-backdrop.fade {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}

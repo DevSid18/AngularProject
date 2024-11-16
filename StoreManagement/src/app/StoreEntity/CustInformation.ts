@@ -7,4 +7,6 @@ export interface CustInformation {
     contact?: string,
     phyAddress?: string,
     action?: string
+    country?: string
+    state?: string
 }

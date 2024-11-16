@@ -1,53 +1,72 @@
-.labelCss {
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
+.abc {
+    border: 1px solid black;
 }
-.abc{
-    border:1px solid black;
-}
-.registrationCss
-{
+
+.registrationCss {
     font-weight: 800;
     font-family: "Montserrat", sans-serif;
-    background: radial-gradient(circle, rgba(138,215,40,1) 0%, rgb(55, 121, 9) 83%);
+    background: radial-gradient(circle, rgba(138, 215, 40, 1) 0%, rgb(55, 121, 9) 83%);
 }
-.updateCss
-{
+
+.updateCss {
     font-family: "Montserrat", sans-serif;
-    background: radial-gradient(circle, rgba(255,248,28,1) 0%, rgba(255,196,0,1) 83%);
+    background: radial-gradient(circle, rgba(255, 248, 28, 1) 0%, rgba(255, 196, 0, 1) 83%);
 }
-.deleteCss
-{
+
+.deleteCss {
     font-family: "Montserrat", sans-serif;
-    background: radial-gradient(circle, rgba(255,28,28,1) 0%, rgba(132,0,0,1) 83%);
+    background: radial-gradient(circle, rgba(255, 28, 28, 1) 0%, rgba(132, 0, 0, 1) 83%);
 }
-.viewCss
-{
+
+.viewCss {
     font-family: "Montserrat", sans-serif;
-    background: radial-gradient(circle, rgba(148,0,255,1) 0%, rgba(88,0,132,1) 83%);
+    background: radial-gradient(circle, rgba(148, 0, 255, 1) 0%, rgba(88, 0, 132, 1) 83%);
 }
-.regBodyCss
-{
-    background-color:rgb(55, 121, 9);
+
+.regBodyCss {
+    background-color: rgb(55, 121, 9);
 }
-.upgdBodyCss
-{
+
+.upgdBodyCss {
     background-color: rgb(254 195 0);
 }
-.delBodyCss
-{
-    background-color: rgba(132,0,0,1);
+
+.delBodyCss {
+    background-color: rgba(132, 0, 0, 1);
 }
-.viewBodyCss
-{
+
+.viewBodyCss {
     padding: 0;
-    background-color:rgba(88,0,132,1);
+    background-color: rgba(88, 0, 132, 1);
 }
-input
-{
+
+input {
     font-family: "Montserrat", sans-serif;
 }
 
+.labelCss {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: #495057;
+    left: 12px;
+    transform: translateY(25%);
+    transition: all 0.2s ease-in-out;
+}
 
+.form-floating {
+    position: relative;
+    margin-bottom: 0.2rem; 
+}
+
+.form-floating input {
+    padding-top: 1.5rem;
+    padding-bottom: 0.75rem;
+    font-size: 16px;
+}
+
+.form-floating .form-control:focus + .labelCss,
+.form-floating .form-control:not(:placeholder-shown) + .labelCss {
+    font-size: 12px;
+    color: #007bff; 
+}

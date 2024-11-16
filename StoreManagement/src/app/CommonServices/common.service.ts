@@ -1,13 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Renderer2, TemplateRef,RendererFactory2 } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) { 
+  }
 
   ToastMessage(
     isToast: boolean = false, message: string, action: string): Promise<any> {
@@ -99,4 +103,9 @@ export class CommonService {
       }
     })
   }
+
+  ModalOpen(tempRef: TemplateRef<any>) {
+    //this.modalService.show(tempRef);
+  }
+
 }

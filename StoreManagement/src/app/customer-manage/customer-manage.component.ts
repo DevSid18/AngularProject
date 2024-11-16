@@ -25,6 +25,9 @@ export class CustomerManageComponent implements OnInit {
   header?: string;
   pageAction?: string;
   bodyCss?: string;
+  selectedTeam?: string;
+
+
 
   constructor(private formBuilder: FormBuilder, private customerService: CustomerService,
     private router: Router, private route: ActivatedRoute, private comServ: CommonService) {
@@ -62,12 +65,12 @@ export class CustomerManageComponent implements OnInit {
         case 'edit':
           this.bodyCss = 'upgdBodyCss'
           break;
-          case 'delete':
+        case 'delete':
           this.bodyCss = 'delBodyCss'
           break;
-          case 'view':
-            this.bodyCss = 'viewBodyCss'
-            break;
+        case 'view':
+          this.bodyCss = 'viewBodyCss'
+          break;
       }
     });
   }
@@ -95,8 +98,8 @@ export class CustomerManageComponent implements OnInit {
     else if (Customer.customerId > 0 && !this.header) {
       Customer.action = this.header;
     }
-    this.customerService.AddCustomer(Customer).subscribe((data) => {
-      if (data.toLowerCase() == 'success') {
+    this.customerService.CustomerActions(Customer).subscribe((data) => {
+      if (data[0]?.action?.toLowerCase() == 'success') {
         this.comServ.ToastMessage(true, "Your information submitted successfully..!", 'success')
           .then(() => {
             this.RemoveInformation('success');
@@ -172,5 +175,9 @@ export class CustomerManageComponent implements OnInit {
       this.error = 'Please enter physical address';
     }
     return this.error;
+  }
+  onSelected(value: string): void {
+    this.selectedTeam = value;
+    alert(this.selectedTeam);
   }
 }

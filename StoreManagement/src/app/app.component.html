@@ -6,7 +6,6 @@
         <div class="order-2 p-1 bg-white">
             <button class="btn btn-success" (click)="OpenPage('AddCustomer')">Add Customer</button>
             <button class="btn btn-warning ml-2" (click)="OpenPage('showcustomers')">Show Customer</button>
-            <button class="btn btn-primary" (click)="OpenPage('Commonview')">View</button>
         </div>
     </div>
 </nav>
@@ -24,4 +23,8 @@
         <p class="text-center">© sidsuryvanshi18&#64;gmail.com</p>
     </div>
 </footer>
+
+<ng-template #dynamicTemplate>
+    <app-commonview></app-commonview>
+  </ng-template>
 
