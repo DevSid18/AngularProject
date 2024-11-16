@@ -1,6 +1,5 @@
 using System.Data;
 using System.Data.SqlClient;
-using System.Data.SqlTypes;
 using Newtonsoft.Json;
 using StoreManagementApi.Contracts;
 using StoreManagementApi.Entity;
@@ -12,13 +11,15 @@ namespace StoreManagementApi.Implimentations
     {
         List<CustomerModel> customers = new List<CustomerModel>();
         CommonCls comMethod = new CommonCls();
+        AuthorizationCls authCls = new AuthorizationCls();
         string actnFlg = string.Empty;
 
         public string? CustomerActions(CustomerModel customer)
         {
             try
             {
-                if (!string.IsNullOrEmpty(customer.action))
+                string? password = (customer?.customerId == 0) ? authCls.GenerateSysPassword(customer?.firstName).Result : customer?.password;                
+                if (!string.IsNullOrEmpty(customer?.action))
                 {
                     SqlCommand sqlCmd = comMethod.DynamicMethod("USP_CUSTOMERS_ACTIONS");
                     actnFlg = !string.IsNullOrEmpty(customer?.action) &&
@@ -38,7 +39,7 @@ namespace StoreManagementApi.Implimentations
                     sqlCmd.Parameters.AddWithValue("@email", customer?.email);
                     sqlCmd.Parameters.AddWithValue("@contact", customer?.contact);
                     sqlCmd.Parameters.AddWithValue("@gender", customer?.gender);
-                    sqlCmd.Parameters.AddWithValue("@password", customer?.password);
+                    sqlCmd.Parameters.AddWithValue("@password", password);
                     sqlCmd.Parameters.AddWithValue("@confirmPassword", customer?.confirmPassword);                 
                     sqlCmd.Parameters.AddWithValue("@isActive", customer?.isActive);                    
                     if (customer?.customerId == 0)
@@ -52,7 +53,7 @@ namespace StoreManagementApi.Implimentations
                 }
                 else
                 {
-                    actnFlg = customer.customerId == 0 ? ActoinFlg.SELECT.ToString() : ActoinFlg.GETUSER.ToString();
+                    actnFlg = customer?.customerId == 0 ? ActoinFlg.SELECT.ToString() : ActoinFlg.GETUSER.ToString();
                     DataTable dataTable = comMethod.getDynamicMethod("USP_CUSTOMERS_ACTIONS", actnFlg, customer.customerId);
                     foreach (DataRow dataRow in dataTable.Rows)
                     {
@@ -71,7 +72,6 @@ namespace StoreManagementApi.Implimentations
                             country = dataRow["country"].ToString(),
                             state = dataRow["state"].ToString(),
                             district = dataRow["district"].ToString(),
-
                         });
                     }
                 }

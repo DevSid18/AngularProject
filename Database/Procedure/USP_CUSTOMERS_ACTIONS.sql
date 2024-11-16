@@ -1,10 +1,3 @@
-USE [StoreManagementDb]
-GO
-/****** Object:  StoredProcedure [dbo].[USP_CUSTOMERS_ACTIONS]    Script Date: 11-11-2024 00:24:56 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 
 ALTER PROCEDURE [dbo].[USP_CUSTOMERS_ACTIONS] 
 	 @actionFlg VARCHAR(20)
@@ -43,6 +36,8 @@ ALTER PROCEDURE [dbo].[USP_CUSTOMERS_ACTIONS]
 	--,@createdDate DATE
 	--,@updatedDate DATE 
 	--,@isActive BIT
+	
+
 	IF ISNULL(@actionFlg, '') = 'SELECT'
 		BEGIN
 			SELECT * FROM CustomerTable WHERE isActive = 1
@@ -54,6 +49,27 @@ ALTER PROCEDURE [dbo].[USP_CUSTOMERS_ACTIONS]
 			phyAddress,email,contact,gender,password,confirmPassword,createdDate,updatedDate,isActive)
 			SELECT @firstName,@middleName,@lastName,@country,@state,@district,
 			@phyAddress,@email,@contact,@gender,@password,@confirmPassword,@createdDate,NULL,1
+			
+			IF NOT EXISTS (SELECT 1 FROM UserLoginTable WHERE customerId = 
+						  (SELECT TOP 1 customerId FROM CustomerTable WHERE email = @email ORDER BY customerId DESC))			
+			BEGIN		
+			DECLARE @CustId INT 
+			SET @CustId = (SELECT TOP 1 customerId FROM CustomerTable WHERE email = @email ORDER BY customerId DESC)
+				IF ISNULL(@CustId, 0) <> 0
+					BEGIN
+						INSERT INTO UserLoginTable (userName, password, confirmPassword,createdDate,isActive,customerId)
+					    VALUES (@email, @password, @confirmPassword,GETDATE(),1,@CustId)
+					    PRINT 'USER added successfully'					    
+					END
+				ELSE
+					BEGIN
+						PRINT 'USER not added, @CustId is NULL or 0'
+					END
+			END
+			ELSE
+			BEGIN
+			    PRINT 'USER not added'
+			END
 		END
 	ELSE IF ISNULL(@actionFlg, '') = 'UPDATE'
 		BEGIN
@@ -75,6 +91,18 @@ ALTER PROCEDURE [dbo].[USP_CUSTOMERS_ACTIONS]
 			FROM CustomerTable custInfo
 			WHERE customerId = @customerId;
 		END
+
+		IF EXISTS (SELECT 1 FROM UserLoginTable WHERE customerId = (SELECT TOP 1 customerId FROM CustomerTable WHERE email = @email ORDER BY customerId DESC))
+			BEGIN
+			SET @CustId = (SELECT TOP 1 customerId FROM CustomerTable WHERE email = @email ORDER BY customerId DESC)
+				UPDATE UserLoginTable
+				SET 
+					password = @password
+					,confirmPassword = @confirmPassword
+					,updatedDate = GETDATE()
+				WHERE
+				customerId = @CustId
+			END
 	ELSE IF ISNULL(@actionFlg, '') = 'DELETE'
 		BEGIN
 			UPDATE custInfo
