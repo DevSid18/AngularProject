@@ -40,7 +40,9 @@ namespace StoreManagementApi.Implimentations
                     sqlCmd.Parameters.AddWithValue("@gender", customer?.gender);
                     sqlCmd.Parameters.AddWithValue("@password", customer?.password);
                     sqlCmd.Parameters.AddWithValue("@confirmPassword", customer?.confirmPassword);                 
-                    sqlCmd.Parameters.AddWithValue("@isActive", customer?.isActive);                    
+                    sqlCmd.Parameters.AddWithValue("@isActive", customer?.isActive);
+                    sqlCmd.Parameters.AddWithValue("@action", customer?.action);
+                    sqlCmd.Parameters.AddWithValue("@result", customer?.result);
                     if (customer?.customerId == 0)
                         sqlCmd.Parameters.AddWithValue("@createdDate", DateTime.Now);
                     else
