@@ -16,7 +16,7 @@ ALTER PROCEDURE [dbo].[USP_CUSTOMERS_ACTIONS]
 	,@confirmPassword VARCHAR(200) = NULL
 	,@createdDate DATETIME = NULL
 	,@updatedDate DATETIME = NULL
-	,@isActive BIT
+	,@isActive BIT = NULL
 	AS
 	--DECLARE
 	-- @actionFlg VARCHAR(20)
@@ -40,7 +40,22 @@ ALTER PROCEDURE [dbo].[USP_CUSTOMERS_ACTIONS]
 
 	IF ISNULL(@actionFlg, '') = 'SELECT'
 		BEGIN
-			SELECT * FROM CustomerTable WHERE isActive = 1
+			SELECT 
+				customerId AS [customerId],
+				ISNULL(LTRIM(RTRIM(firstName)), '') + ' ' + 
+				ISNULL(LTRIM(RTRIM(middleName)), '') + ' ' + 
+				ISNULL(LTRIM(RTRIM(lastName)), '') AS [firstName],
+				
+				ISNULL(LTRIM(RTRIM(phyAddress)), '') + ',' + 
+				ISNULL(LTRIM(RTRIM(district)), '') + ',' + 
+				ISNULL(LTRIM(RTRIM(state)), '') + ',' + 
+				ISNULL(LTRIM(RTRIM(country)), '') AS [phyAddress],
+				
+				ISNULL(LTRIM(RTRIM(email)), '') AS [email],
+				ISNULL(LTRIM(RTRIM(contact)), '') AS [contact],
+				ISNULL(LTRIM(RTRIM(gender)), '') AS [gender]    
+			FROM CustomerTable 
+			WHERE isActive = 1
 		END
 	ELSE IF ISNULL(@actionFlg, '') = 'INSERT'
 		BEGIN
