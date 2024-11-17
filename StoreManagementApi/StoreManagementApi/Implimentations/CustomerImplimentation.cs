@@ -24,13 +24,6 @@ namespace StoreManagementApi.Implimentations
         {
             try
             {
-
-                //if (customer?.action?.ToLower() == "register")
-                //{
-                //    SendEmailNotification(customer.email, "Welcome to Our Service", "Your account has been successfully created.");
-                //}
-
-
                 if (!string.IsNullOrEmpty(customer?.action))
                 {
                     string? password = (customer?.customerId == 0) ? authCls.GenerateSysPassword(customer?.firstName).Result : customer?.password;
@@ -74,17 +67,10 @@ namespace StoreManagementApi.Implimentations
                         {
                             customerId = Convert.ToInt32(dataRow["customerId"]),
                             firstName = dataRow["firstName"].ToString(),
-                            middleName = dataRow["middleName"].ToString(),
-                            lastName = dataRow["lastName"].ToString(),
                             email = dataRow["email"].ToString(),
                             contact = dataRow["contact"].ToString(),
                             phyAddress = dataRow["phyAddress"].ToString(),
                             gender = dataRow["gender"].ToString(),
-                            password = dataRow["password"].ToString(),
-                            confirmPassword = dataRow["confirmPassword"].ToString(),
-                            country = dataRow["country"].ToString(),
-                            state = dataRow["state"].ToString(),
-                            district = dataRow["district"].ToString(),
                         });
                     }
                 }
