@@ -1,6 +1,6 @@
 namespace StoreManagementApi.Entity
 {
-    public enum ActoinStatus
+    public enum ActionStatus
     {
         Success,
         Error        

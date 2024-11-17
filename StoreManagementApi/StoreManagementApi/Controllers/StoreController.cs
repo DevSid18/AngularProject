@@ -29,5 +29,25 @@ namespace StoreManagementApi.Controllers
             }
             return Ok(customers);
         }
+
+        #region Excel Report
+
+        [HttpPost]
+        [Route("ExportExcel")]
+        public IActionResult ExportExcel(List<CustomerModel> exclModel)
+        {
+            try
+            {
+                string? result = Customer.ExcelExport(exclModel);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return Ok(customers);
+        }
+
+        #endregion
     }
 }
