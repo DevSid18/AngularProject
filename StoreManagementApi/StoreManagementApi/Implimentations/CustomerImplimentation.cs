@@ -18,9 +18,9 @@ namespace StoreManagementApi.Implimentations
         {
             try
             {
-                string? password = (customer?.customerId == 0) ? authCls.GenerateSysPassword(customer?.firstName).Result : customer?.password;                
                 if (!string.IsNullOrEmpty(customer?.action))
                 {
+                    string? password = (customer?.customerId == 0) ? authCls.GenerateSysPassword(customer?.firstName).Result : customer?.password;
                     SqlCommand sqlCmd = comMethod.DynamicMethod("USP_CUSTOMERS_ACTIONS");
                     actnFlg = !string.IsNullOrEmpty(customer?.action) &&
                     customer?.action?.ToLower() == "register" ? ActoinFlg.INSERT.ToString() :
@@ -40,10 +40,7 @@ namespace StoreManagementApi.Implimentations
                     sqlCmd.Parameters.AddWithValue("@contact", customer?.contact);
                     sqlCmd.Parameters.AddWithValue("@gender", customer?.gender);
                     sqlCmd.Parameters.AddWithValue("@password", password);
-                    sqlCmd.Parameters.AddWithValue("@confirmPassword", customer?.confirmPassword);                 
-                    sqlCmd.Parameters.AddWithValue("@isActive", customer?.isActive);
-                    sqlCmd.Parameters.AddWithValue("@action", customer?.action);
-                    sqlCmd.Parameters.AddWithValue("@result", customer?.result);
+                    sqlCmd.Parameters.AddWithValue("@confirmPassword", customer?.confirmPassword);
                     if (customer?.customerId == 0)
                         sqlCmd.Parameters.AddWithValue("@createdDate", DateTime.Now);
                     else
@@ -63,17 +60,10 @@ namespace StoreManagementApi.Implimentations
                         {
                             customerId = Convert.ToInt32(dataRow["customerId"]),
                             firstName = dataRow["firstName"].ToString(),
-                            middleName = dataRow["middleName"].ToString(),
-                            lastName = dataRow["lastName"].ToString(),
                             email = dataRow["email"].ToString(),
                             contact = dataRow["contact"].ToString(),
                             phyAddress = dataRow["phyAddress"].ToString(),
                             gender = dataRow["gender"].ToString(),
-                            password = dataRow["password"].ToString(),
-                            confirmPassword = dataRow["confirmPassword"].ToString(),
-                            country = dataRow["country"].ToString(),
-                            state = dataRow["state"].ToString(),
-                            district = dataRow["district"].ToString(),
                         });
                     }
                 }
