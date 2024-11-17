@@ -1,56 +1,15 @@
-// import { Component, Input, OnInit, ViewChild, input, output, viewChild } from '@angular/core';
-// import { CustInformation } from '../StoreEntity/CustInformation';
-// import { CommonModule } from '@angular/common';
-// import { CustomerService } from '../customer-manage/customer.service';
-// import { Router } from '@angular/router';
-// import { CustomerManageComponent } from '../customer-manage/customer-manage.component';
-
-
-// @Component({
-//   selector: 'app-data-reports',
-//   standalone: true,
-//   imports: [CommonModule, CustomerManageComponent],
-//   templateUrl: './data-reports.component.html',
-//   styleUrl: './data-reports.component.css'
-// })
-// export class DataReportsComponent implements OnInit {
-
-//   @Input() customerInfo: CustInformation[] = [];
-//   customerInfos: CustInformation[] = [];
-//   CustInfo!: CustInformation;
-//   @ViewChild(CustomerManageComponent) customerManageComponent!: CustomerManageComponent;
-
-//   constructor(private customerService: CustomerService, private router: Router) { }
-//   ngOnInit(): void {
-//     this.CustomerDetails();
-//   }
-//   CustomerDetails() {
-//     this.customerService.GetAllCustomers().subscribe(data => {
-//       this.customerInfos = data;
-//     })
-//   }
-//   GetUserInfo(id: number) {
-//     this.customerService.GetCustomerInfo(id).subscribe(userInfo => {
-//       this.CustInfo = userInfo;
-//       if (this.customerManageComponent) {
-//         this.customerManageComponent.updateForm(this.CustInfo);
-//         this.customerManageComponent.Cust = this.CustInfo;
-//       };
-//     });
-//   }
-// }
-
-
 import { Component, OnInit } from '@angular/core';
 import { CustInformation } from '../StoreEntity/CustInformation';
 import { CommonModule } from '@angular/common';
 import { CustomerService } from '../customer-manage/customer.service';
 import { Router } from '@angular/router';
+import { ColDef, GridOptions } from 'ag-grid-community';
+import { AgGridAngular, AgGridModule } from 'ag-grid-angular';
 
 @Component({
   selector: 'app-data-reports',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,AgGridModule, AgGridAngular],
   templateUrl: './data-reports.component.html',
   styleUrls: ['./data-reports.component.css']
 })
@@ -67,6 +26,34 @@ export class DataReportsComponent implements OnInit {
     this.CustomerDetails();
   }
 
+  rowData = this.customerInfos;
+  colDefs: ColDef[] = [
+    {
+      headerName: "Customer Name",
+      field: "firstName",
+      width : 150
+    },
+    {
+      headerName: "Email",
+      field: "email",
+      width : 100
+    },
+    {
+      headerName: "Contact",
+      field: "contact",
+      width : 50
+    },
+    {
+      headerName: "Address",
+      field: "phyAddress"
+    }
+  ];
+  gridOptions: GridOptions = {
+    onGridReady: (params) => {
+      params.api.sizeColumnsToFit();
+    }
+  };
+
   CustomerDetails() {
     const custInfo: CustInformation = {
       customerId: this.custId,
@@ -78,6 +65,7 @@ export class DataReportsComponent implements OnInit {
     if (custInfo.customerId == 0 && custInfo.action == '') {
       this.customerService.CustomerActions(custInfo).subscribe(data => {
         this.customerInfos = data;
+        this.rowData = this.customerInfos;
       });
     }
     else {

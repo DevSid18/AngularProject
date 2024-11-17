@@ -1,0 +1,5 @@
+ng update @angular/core @angular/cli
+npm install ngx-bootstrap --save --force
+npm install --save ag-grid-angular
+npm install ag-grid-community   
+ls node_modules/ag-grid-community   
