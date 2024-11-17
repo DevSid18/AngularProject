@@ -3,7 +3,15 @@
         <div class="viewCss text-white p-3 text-center">
             <h3 class="mb-2 text-uppercase align-middle">Customers Information</h3>
         </div>
-        <div class="shadow-lg p-3 mb-5 bg-white">
+
+        <ag-grid-angular class="ag-theme-quartz" style="height: 500px; width: 100%;" [rowData]="customerInfos"
+            [columnDefs]="colDefs" [gridOptions]="gridOptions">
+        </ag-grid-angular>
+
+
+
+
+        <!-- <div class="shadow-lg p-3 mb-5 bg-white">
             <table class="table table-bordered table-stripped">
                 <thead>
                     <tr>
@@ -35,6 +43,6 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div> -->
     </div>
 </body>
