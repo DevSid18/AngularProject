@@ -7,8 +7,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { CommonService } from '../CommonServices/common.service';
 
-
-
 @Component({
   selector: 'app-customer-manage',
   standalone: true,
@@ -27,8 +25,6 @@ export class CustomerManageComponent implements OnInit {
   bodyCss?: string;
   selectedTeam?: string;
 
-
-
   constructor(private formBuilder: FormBuilder, private customerService: CustomerService,
     private router: Router, private route: ActivatedRoute, private comServ: CommonService) {
     this.CustomerForm = this.formBuilder.group({
@@ -40,11 +36,14 @@ export class CustomerManageComponent implements OnInit {
       contact: ['', Validators.required],
       phyAddress: ['', Validators.required],
       action: ['', Validators.required],
+      country: ['', Validators.required],
+      state: ['', Validators.required],
+      district: ['', Validators.required],
+      gender: ['', Validators.required],      
     });
   }
 
   ngOnInit() {
-    // Get query parameters from the route
     this.route.queryParams.subscribe(params => {
       const customer: CustInformation = {
         customerId: +params['id'] || 0,
@@ -54,7 +53,11 @@ export class CustomerManageComponent implements OnInit {
         email: params['email'] || '',
         contact: params['contact'] || '',
         phyAddress: params['phyAddress'] || '',
-        action: params['action'] || ''
+        action: params['action'] || '',
+        country: params['country'] || '',
+        state: params['state'] || '',
+        district: params['district'] || '',
+        gender: params['gender'] || ''
       };
       this.updateForm(customer);
 
@@ -85,6 +88,10 @@ export class CustomerManageComponent implements OnInit {
       contact: this.CustomerForm.get('contact')?.value,
       phyAddress: this.CustomerForm.get('phyAddress')?.value,
       action: this.CustomerForm.get('action')?.value,
+      country: this.CustomerForm.get('country')?.value,
+      state: this.CustomerForm.get('state')?.value,
+      district: this.CustomerForm.get('district')?.value,
+      gender: this.CustomerForm.get('gender')?.value,      
     };
     if (this.isValid(Customer)) {
       alert(this.error);
@@ -124,7 +131,7 @@ export class CustomerManageComponent implements OnInit {
       this.header = 'register';
     else
       this.header = userInfo.action;
-    this.CustomerForm.setValue({
+      this.CustomerForm.setValue({
       customerId: userInfo.customerId || 0,
       firstName: userInfo.firstName || '',
       middleName: userInfo.middleName || '',
@@ -132,7 +139,11 @@ export class CustomerManageComponent implements OnInit {
       email: userInfo.email || '',
       contact: userInfo.contact || '',
       phyAddress: userInfo.phyAddress || '',
-      action: userInfo.action
+      action: userInfo.action,
+      country: userInfo.country,
+      state: userInfo.state,
+      district: userInfo.district,
+      gender : userInfo.gender
     });
   }
 
@@ -177,7 +188,6 @@ export class CustomerManageComponent implements OnInit {
     return this.error;
   }
   onSelected(value: string): void {
-    this.selectedTeam = value;
-    alert(this.selectedTeam);
+    this.selectedTeam = value;    
   }
 }

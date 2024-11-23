@@ -5,11 +5,12 @@ import { CustomerService } from '../customer-manage/customer.service';
 import { Router } from '@angular/router';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import { AgGridAngular, AgGridModule } from 'ag-grid-angular';
+import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-data-reports',
   standalone: true,
-  imports: [CommonModule,AgGridModule, AgGridAngular],
+  imports: [CommonModule, AgGridModule, AgGridAngular],
   templateUrl: './data-reports.component.html',
   styleUrls: ['./data-reports.component.css']
 })
@@ -31,17 +32,17 @@ export class DataReportsComponent implements OnInit {
     {
       headerName: "Customer Name",
       field: "firstName",
-      width : 150
+      width: 150
     },
     {
       headerName: "Email",
       field: "email",
-      width : 100
+      width: 100
     },
     {
       headerName: "Contact",
       field: "contact",
-      width : 50
+      width: 50
     },
     {
       headerName: "Address",
@@ -80,6 +81,10 @@ export class DataReportsComponent implements OnInit {
             contact: userInfo[0].contact,
             phyAddress: userInfo[0].phyAddress,
             action: this.action,
+            country: userInfo[0].country,
+            state: userInfo[0].state,
+            district: userInfo[0].district,
+            gender: userInfo[0].gender
           }
         });
       });
