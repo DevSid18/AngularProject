@@ -39,7 +39,7 @@ export class CustomerManageComponent implements OnInit {
       country: ['', Validators.required],
       state: ['', Validators.required],
       district: ['', Validators.required],
-      gender: ['', Validators.required],      
+      gender: ['', Validators.required],
     });
   }
 
@@ -91,7 +91,7 @@ export class CustomerManageComponent implements OnInit {
       country: this.CustomerForm.get('country')?.value,
       state: this.CustomerForm.get('state')?.value,
       district: this.CustomerForm.get('district')?.value,
-      gender: this.CustomerForm.get('gender')?.value,      
+      gender: this.CustomerForm.get('gender')?.value,
     };
     if (this.isValid(Customer)) {
       alert(this.error);
@@ -106,10 +106,10 @@ export class CustomerManageComponent implements OnInit {
       Customer.action = this.header;
     }
     this.customerService.CustomerActions(Customer).subscribe((data) => {
-      if (data[0]?.action?.toLowerCase() == 'success') {
+      if (data[0]?.result?.toUpperCase() === 'SUCCESS') {
         this.comServ.ToastMessage(true, "Your information submitted successfully..!", 'success')
           .then(() => {
-            this.RemoveInformation('success');
+            this.RemoveInformation('SUCCESS');
           }).catch((error) => {
             console.error('Toast message failed:', error);
           });
@@ -131,7 +131,7 @@ export class CustomerManageComponent implements OnInit {
       this.header = 'register';
     else
       this.header = userInfo.action;
-      this.CustomerForm.setValue({
+    this.CustomerForm.setValue({
       customerId: userInfo.customerId || 0,
       firstName: userInfo.firstName || '',
       middleName: userInfo.middleName || '',
@@ -143,7 +143,7 @@ export class CustomerManageComponent implements OnInit {
       country: userInfo.country,
       state: userInfo.state,
       district: userInfo.district,
-      gender : userInfo.gender
+      gender: userInfo.gender
     });
   }
 
@@ -155,9 +155,12 @@ export class CustomerManageComponent implements OnInit {
       lastName: '',
       email: '',
       contact: '',
-      phyAddress: ''
+      phyAddress: '',
+      state: 0,
+      district: 0,
+      gender: ''
     });
-    if (action?.toLowerCase() == 'success')
+    if (action?.toUpperCase() === 'SUCCESS')
       this.router.navigate(['/data-reports']);
     else
       this.router.navigate(['/customer-manage'])
@@ -188,6 +191,6 @@ export class CustomerManageComponent implements OnInit {
     return this.error;
   }
   onSelected(value: string): void {
-    this.selectedTeam = value;    
+    this.selectedTeam = value;
   }
 }

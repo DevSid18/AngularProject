@@ -9,4 +9,7 @@ export interface CustInformation {
     action?: string
     country?: string
     state?: string
+    district?: string
+    gender?: string
+    result?: string
 }
