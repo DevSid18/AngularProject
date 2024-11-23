@@ -18,16 +18,16 @@ export class CommonService {
     return new Promise((resolve, reject) => {
       let buttons: boolean = false;
       let position: any = 'top';
-      let timer: any = 1500;
+      let timer: any = 2000;
       let icon: any;
       let title: any;
 
-      switch (action.toLowerCase()) {
-        case 'success':
+      switch (action.toUpperCase()) {
+        case 'SUCCESS':
           icon = 'success';
           title = 'Congrats';
           break;
-        case 'error':
+        case 'ERROR':
           icon = 'error';
           title = 'Oops';
           break;
@@ -39,7 +39,7 @@ export class CommonService {
         //   icon = "warning";
         //   break;
       }
-      if (action.toLowerCase() == 'success' || action.toLowerCase() == 'error') {
+      if (action.toUpperCase() == 'SUCCESS' || action.toLowerCase() == 'ERROR') {
         const Toast = Swal.mixin({
           toast: isToast,
           position: position,
@@ -61,7 +61,7 @@ export class CommonService {
           reject(error);
         });
       }
-      else if (action.toLowerCase() == 'delete') {
+      else if (action.toUpperCase() == 'DELETE') {
         const swalWithBootstrapButtons = Swal.mixin({
           customClass: {
             confirmButton: "btn btn-success",

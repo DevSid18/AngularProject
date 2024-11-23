@@ -12,9 +12,6 @@ export class CustomerService {
   private baseUrl = 'https://localhost:7015/Store';
 
   CustomerActions(info: CustInformation): Observable<CustInformation[]> {
-    return this.httpService.post<CustInformation[]>(`${this.baseUrl}/CustomerActions/` , info).pipe();
+    return this.httpService.post<CustInformation[]>(`${this.baseUrl}/CustomerActions/`, info).pipe();
   }
-  // AddCustomer(info: CustInformation): Observable<string> {
-  //   return this.httpService.post<string>(`${this.baseUrl}/AddCustomer`, info).pipe();
-  // }
 }
