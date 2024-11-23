@@ -55,7 +55,7 @@
                         </select>
                     </div>
                     <div class="form-floating  col">
-                        <label for="district" class="labelCss">State</label>
+                        <label for="district" class="labelCss">District</label>
                         <select class="form-control" #district (change)="onSelected(district.value)"
                             formControlName="district">
                             <option default>Select District</option>
@@ -79,6 +79,26 @@
                     <div class="form-floating col">
                         <label for="PhyAddress" class="labelCss">Phy.Address</label>
                         <input type="text" class="form-control" id="PhyAddress" formControlName="phyAddress">
+                    </div>
+                    <div class="form-floating col">
+                        <label class="labelCss">Gender</label>
+                        <div class="d-flex flex-column">
+                            <div class="form-check">
+                                <input type="radio" id="Male" formControlName="gender" class="form-check-input"
+                                    value="male">
+                                <label for="Male" class="form-check-label">Male</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="Female" formControlName="gender" class="form-check-input"
+                                    value="female">
+                                <label for="Female" class="form-check-label">Female</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="Transgender" formControlName="gender" class="form-check-input"
+                                    value="transgender">
+                                <label for="Transgender" class="form-check-label">Transgender</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <br>
