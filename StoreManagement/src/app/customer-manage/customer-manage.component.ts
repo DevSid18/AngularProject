@@ -6,6 +6,7 @@ import { CustomerService } from './customer.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { CommonService } from '../CommonServices/common.service';
+import { LocationService } from '../CommonServices/location.service';
 
 @Component({
   selector: 'app-customer-manage',
@@ -24,9 +25,15 @@ export class CustomerManageComponent implements OnInit {
   pageAction?: string;
   bodyCss?: string;
   selectedTeam?: string;
+  countries: any[] = [];
+  states: any[] = [];
+  cities: any[] = [];
+  stateCode?: string;
+
 
   constructor(private formBuilder: FormBuilder, private customerService: CustomerService,
-    private router: Router, private route: ActivatedRoute, private comServ: CommonService) {
+    private router: Router, private route: ActivatedRoute, private comServ: CommonService,
+    private locationService: LocationService,) {
     this.CustomerForm = this.formBuilder.group({
       customerId: [0],
       firstName: ['', Validators.required],
@@ -63,20 +70,113 @@ export class CustomerManageComponent implements OnInit {
 
       switch (customer.action?.toLocaleLowerCase()) {
         case '':
-          this.bodyCss = 'regBodyCss'
+          this.bodyCss = 'regBodyCss';
           break;
         case 'edit':
-          this.bodyCss = 'upgdBodyCss'
+          this.bodyCss = 'upgdBodyCss';
           break;
         case 'delete':
-          this.bodyCss = 'delBodyCss'
+          this.bodyCss = 'delBodyCss';
           break;
         case 'view':
-          this.bodyCss = 'viewBodyCss'
+          this.bodyCss = 'viewBodyCss';
           break;
       }
+
+      // this.getGeolocation();
     });
+
+    //----------Select country and state--------------->
+    this.locationService.getCountries().subscribe(data => {
+      this.countries = data.geonames;
+    });
+    this.CustomerForm.get('country')?.valueChanges.subscribe(countryCode => {
+      this.fetchStates(countryCode);
+    });
+    this.CustomerForm.get('state')?.valueChanges.subscribe(stateCode => {
+      this.fetchCities(stateCode);
+    });
+    //------------------------->
   }
+
+  fetchStates(event: Event): void {
+    const target = event.target as HTMLSelectElement;
+    const countryId = target.value;  // Get selected country code
+    // this.stateCode =
+    if (countryId) {
+      this.locationService.getStates(countryId).subscribe(
+        (data) => {
+          this.states = data.geonames || [];
+          this.cities = [];
+          this.CustomerForm.patchValue({ city: '' });
+
+        },
+        (error) => {
+          console.error('Error fetching states:', error);
+        }
+      );
+    } else {
+      this.states = [];
+      this.cities = [];
+    }
+  }
+
+  fetchCities(event: Event): void {
+    const target = event.target as HTMLSelectElement;
+    const selectedValue = target.value;  // e.g., "16,IN"
+
+    if (selectedValue) {
+      const [stateCode, countryCode] = selectedValue.split(',');
+      if (stateCode && countryCode) {
+        console.log('Selected State Code:', stateCode);
+        console.log('Selected Country Code:', countryCode);
+
+        this.locationService.getCities(stateCode, countryCode).subscribe(
+          (data) => {
+            console.log('Cities fetched:', data);  // Log cities response
+            this.cities = data.geonames || [];  // Assign the cities
+          },
+          (error) => {
+            console.error('Error fetching cities:', error);
+          }
+        );
+      } else {
+        this.cities = [];
+      }
+    }
+  }
+
+
+
+
+  // getGeolocation(): void {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition((position) => {
+  //       const latitude = position.coords.latitude;
+  //       const longitude = position.coords.longitude;
+
+  //       fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=9c52f2c1dd654c1abec5318f0822a4fd`)
+  //         .then(response => response.json())
+  //         .then(data => {
+  //           const country = data.results[0]?.components.country;
+  //           const state = data.results[0]?.components.state;
+  //           const district = data.results[0]?.components.state_district;
+  //           const stateCode = data.results[0]?.components.state_code || data.results[0]?.components.postcode;
+
+  //           this.CustomerForm.patchValue({
+  //             country: country || '',
+  //             state: state || '',
+  //             district: district || ''
+  //           });
+  //         })
+  //         .catch(error => console.log('Error:', error));
+  //     }, (error) => {
+  //       console.log('Geolocation Error:', error);
+  //     });
+  //   } else {
+  //     console.log("Geolocation is not supported by this browser.");
+  //   }
+  // }
 
   CustomerAction() {
     const Customer: CustInformation = {
@@ -193,4 +293,9 @@ export class CustomerManageComponent implements OnInit {
   onSelected(value: string): void {
     this.selectedTeam = value;
   }
+
+
+
+
+
 }

@@ -34,34 +34,31 @@
                         <input type="text" class="form-control" id="lastName" formControlName="lastName">
                     </div>
                 </div>
+
                 <div class="row">
-                    <div class="form-floating  col">
-                        <label for="country" class="labelCss">Country</label>
-                        <select class="form-control" #country (change)="onSelected(country.value)"
-                            formControlName="country">
-                            <option default>Select Country</option>
-                            <option>India</option>
-                            <option>Nepal</option>
-                            <option>Sri lanka</option>
+                    <div class="form-floating col">
+                        <!-- Country Dropdown -->
+                        <label for="country">Select Country:</label>
+                        <select class="form-control" formControlName="country" id="country"
+                            (change)="fetchStates($event)">
+                            <option value="">Select Country</option>
+                            <option *ngFor="let country of countries" [value]="country.geonameId">
+                                {{ country.countryName }}
+                            </option>
                         </select>
-                    </div>
-                    <div class="form-floating  col">
-                        <label for="state" class="labelCss">State</label>
-                        <select class="form-control" #state (change)="onSelected(state.value)" formControlName="state">
-                            <option default>Select State</option>
-                            <option>Maharashtra</option>
-                            <option>Gujrat</option>
-                            <option>Punjab</option>
+
+                        <!-- State Dropdown -->
+                        <label for="state">Select State:</label>
+                        <select class="form-control" formControlName="state" id="state" (change)="fetchCities($event)">
+                            <option value="">Select State</option>
+                            <option *ngFor="let state of states" [value]="state.adminCode1 + ',' + state.countryCode">{{ state.name }}</option>
                         </select>
-                    </div>
-                    <div class="form-floating  col">
-                        <label for="district" class="labelCss">District</label>
-                        <select class="form-control" #district (change)="onSelected(district.value)"
-                            formControlName="district">
-                            <option default>Select District</option>
-                            <option>Dhule</option>
-                            <option>Nashik</option>
-                            <option>Pune</option>
+
+                        <!-- City Dropdown -->
+                        <label for="district">Select City:</label>
+                        <select class="form-control" formControlName="district" id="district">
+                            <option value="">Select City</option>
+                            <option *ngFor="let city of cities" [value]="city.geonameId">{{ city.name }}</option>
                         </select>
                     </div>
                 </div>
