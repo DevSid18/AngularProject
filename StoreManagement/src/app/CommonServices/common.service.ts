@@ -1,4 +1,4 @@
-import { Injectable, Renderer2, TemplateRef,RendererFactory2 } from '@angular/core';
+import { Injectable, Renderer2, TemplateRef, RendererFactory2 } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -10,17 +10,17 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class CommonService {
 
-  constructor(private router: Router) { 
+  constructor(private router: Router) {
   }
 
   ToastMessage(
-    isToast: boolean = false, message: string, action: string): Promise<any> {
+    isToast: boolean = false, message: string, action: string, title?: string): Promise<any> {
     return new Promise((resolve, reject) => {
       let buttons: boolean = false;
       let position: any = 'top';
       let timer: any = 2000;
       let icon: any;
-      let title: any;
+      
 
       switch (action.toUpperCase()) {
         case 'SUCCESS':
@@ -29,7 +29,7 @@ export class CommonService {
           break;
         case 'ERROR':
           icon = 'error';
-          title = 'Oops';
+          title = title;
           break;
         // case 'delete':
         //   buttons = true;
@@ -39,7 +39,7 @@ export class CommonService {
         //   icon = "warning";
         //   break;
       }
-      if (action.toUpperCase() == 'SUCCESS' || action.toLowerCase() == 'ERROR') {
+      if (action.toUpperCase() == 'SUCCESS' || action.toUpperCase() == 'ERROR') {
         const Toast = Swal.mixin({
           toast: isToast,
           position: position,

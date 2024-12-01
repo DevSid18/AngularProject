@@ -5,12 +5,11 @@
 .registrationCss {
     font-weight: 800;
     font-family: "Montserrat", sans-serif;
-    background: radial-gradient(circle, rgba(138, 215, 40, 1) 0%, rgb(55, 121, 9) 83%);
 }
 
 .updateCss {
     font-family: "Montserrat", sans-serif;
-    background: radial-gradient(circle, rgba(255, 248, 28, 1) 0%, rgba(255, 196, 0, 1) 83%);
+    background-color: rgba(255, 248, 28, 1);
 }
 
 .deleteCss {
@@ -24,7 +23,7 @@
 }
 
 .regBodyCss {
-    background-color: rgb(55, 121, 9);
+    background-color: rgb(200, 255, 161);
 }
 
 .upgdBodyCss {
@@ -46,8 +45,7 @@ input {
 
 .labelCss {
     font-family: "Montserrat", sans-serif;
-    font-weight: 600;
-    font-size: 14px;
+    font-size: 15px;
     color: #495057;
     left: 12px;
     transform: translateY(25%);
@@ -56,7 +54,7 @@ input {
 
 .form-floating {
     position: relative;
-    margin-bottom: 0.2rem; 
+    margin-bottom: 0.2rem;
 }
 
 .form-floating input {
@@ -65,8 +63,12 @@ input {
     font-size: 16px;
 }
 
-.form-floating .form-control:focus + .labelCss,
-.form-floating .form-control:not(:placeholder-shown) + .labelCss {
+.form-floating .form-control:focus+.labelCss,
+.form-floating .form-control:not(:placeholder-shown)+.labelCss {
     font-size: 12px;
-    color: #007bff; 
+    color: #007bff;
+}
+
+.d-flex {
+    gap: 10px; 
 }

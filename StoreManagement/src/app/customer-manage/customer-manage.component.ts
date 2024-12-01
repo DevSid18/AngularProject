@@ -82,11 +82,8 @@ export class CustomerManageComponent implements OnInit {
           this.bodyCss = 'viewBodyCss';
           break;
       }
-
       // this.getGeolocation();
     });
-
-    //----------Select country and state--------------->
     this.locationService.getCountries().subscribe(data => {
       this.countries = data.geonames;
     });
@@ -96,20 +93,18 @@ export class CustomerManageComponent implements OnInit {
     this.CustomerForm.get('state')?.valueChanges.subscribe(stateCode => {
       this.fetchCities(stateCode);
     });
-    //------------------------->
   }
 
   fetchStates(event: Event): void {
     const target = event.target as HTMLSelectElement;
-    const countryId = target.value;  // Get selected country code
-    // this.stateCode =
-    if (countryId) {
+    const selectedValue = target.value;
+    if (selectedValue) {
+      const [countryId, countryName] = selectedValue.split(',');
       this.locationService.getStates(countryId).subscribe(
         (data) => {
           this.states = data.geonames || [];
           this.cities = [];
           this.CustomerForm.patchValue({ city: '' });
-
         },
         (error) => {
           console.error('Error fetching states:', error);
@@ -123,14 +118,11 @@ export class CustomerManageComponent implements OnInit {
 
   fetchCities(event: Event): void {
     const target = event.target as HTMLSelectElement;
-    const selectedValue = target.value;  // e.g., "16,IN"
+    const selectedValue = target.value;
 
     if (selectedValue) {
       const [stateCode, countryCode] = selectedValue.split(',');
       if (stateCode && countryCode) {
-        console.log('Selected State Code:', stateCode);
-        console.log('Selected Country Code:', countryCode);
-
         this.locationService.getCities(stateCode, countryCode).subscribe(
           (data) => {
             console.log('Cities fetched:', data);  // Log cities response
@@ -145,9 +137,6 @@ export class CustomerManageComponent implements OnInit {
       }
     }
   }
-
-
-
 
   // getGeolocation(): void {
   //   if (navigator.geolocation) {
@@ -188,14 +177,15 @@ export class CustomerManageComponent implements OnInit {
       contact: this.CustomerForm.get('contact')?.value,
       phyAddress: this.CustomerForm.get('phyAddress')?.value,
       action: this.CustomerForm.get('action')?.value,
-      country: this.CustomerForm.get('country')?.value,
+      country: this.CustomerForm.get('country')?.value.split(',')[1],
       state: this.CustomerForm.get('state')?.value,
       district: this.CustomerForm.get('district')?.value,
       gender: this.CustomerForm.get('gender')?.value,
     };
     if (this.isValid(Customer)) {
-      alert(this.error);
-      return;
+      this.comServ.ToastMessage(true, this.error, 'error', 'Validation').then(() => {
+        return;
+      });
     }
     if (Customer.customerId == 0 && this.header?.trim().toLocaleLowerCase() == 'register') {
       this.header = "register";
@@ -224,8 +214,9 @@ export class CustomerManageComponent implements OnInit {
 
   updateForm(userInfo: CustInformation) {
     if (!userInfo) {
-      console.error('No userInfo received');
-      return;
+      this.comServ.ToastMessage(true, "No userInfo received", 'error', 'Oops..!').then(() => {
+        return;
+      });
     }
     if (userInfo.customerId == 0)
       this.header = 'register';
@@ -261,7 +252,7 @@ export class CustomerManageComponent implements OnInit {
       gender: ''
     });
     if (action?.toUpperCase() === 'SUCCESS')
-      this.router.navigate(['/data-reports']);
+      this.router.navigate(['/login']);
     else
       this.router.navigate(['/customer-manage'])
   }
@@ -293,9 +284,4 @@ export class CustomerManageComponent implements OnInit {
   onSelected(value: string): void {
     this.selectedTeam = value;
   }
-
-
-
-
-
 }

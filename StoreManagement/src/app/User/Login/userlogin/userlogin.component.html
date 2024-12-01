@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<body>
+    <form class="form" [formGroup]="UserLoginForm">
+        <br>
+        <div class="container-fluid p-4 w-50">
+            <div class="shadow-lg p-3 mb-5 bg-white rounded ">
+                <div class="form-floating col">
+                    <h2 style="color: #53c76e;">
+                        {{ !isResetPass ? 'USER LOGIN' : 'RESET PASSWORD' }}
+                    </h2>
+                </div>
+                <div class="form-floating  col">
+                    <label for="username" class="labelCss" [ariaDisabled]="isResetPass">Username</label>
+                    <input type="text" class="form-control" id="username" required formControlName="username">
+                </div>
+                <div class="form-floating col">
+                    <label for="password" class="labelCss">Password</label>
+                    <input type="password" class="form-control" id="password" formControlName="password">
+
+                    <label for="confpass" class="labelCss" *ngIf="isResetPass">Confirm Password</label>
+                    <input type="password" class="form-control" id="confpass" formControlName="confpass"
+                        *ngIf="isResetPass">
+                </div>
+                <br>
+                <div class="d-flex flex-column align-items-center justify-content-center">
+                    <div>
+                        <button type="submit" class="btn btn-success text-uppercase"
+                            (click)="!isResetPass ?ProcessToLogin('LOGIN') : ProcessToLogin('RESET')">
+                            {{ !isResetPass ? 'LOGIN' : 'RESET' }}
+                        </button>
+                    </div>
+                    <div class="mt-3">
+                        <p>Don't have an account? <a style="color: #53c76e; font-weight: 600;"
+                                href="/customer-manage">Sign up</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>

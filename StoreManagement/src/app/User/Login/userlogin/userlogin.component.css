@@ -1,0 +1,12 @@
+body {
+    background-color: #c5ffd2;
+}
+
+.labelCss {
+    font-family: "Montserrat", sans-serif;
+    font-size: 15px;
+    color: #495057;
+    left: 12px;
+    transform: translateY(25%);
+    transition: all 0.2s ease-in-out;
+}

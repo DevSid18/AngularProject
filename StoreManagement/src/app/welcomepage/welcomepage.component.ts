@@ -16,6 +16,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 })
 export class WelcomepageComponent {
   constructor(private router: Router, private modalService: BsModalService) { }
+
   @ViewChild('dynamicTemplate') tempRef!: TemplateRef<any>;
   modalRef?: BsModalRef;
 
