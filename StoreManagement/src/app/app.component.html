@@ -4,27 +4,69 @@
             <button class="btn" (click)="OpenPage('Home')">Home</button>
         </div>
         <div class="order-2 p-1 bg-white">
-            <button class="btn btn-success" (click)="OpenPage('AddCustomer')">Add Customer</button>
+            <button class="btn btn-success" (click)="OpenPage('login')">Login</button>
             <button class="btn btn-warning ml-2" (click)="OpenPage('showcustomers')">Show Customer</button>
         </div>
     </div>
 </nav>
 
-<body>
-    <div class="container-fluid">
+<body class="d-flex flex-column min-vh-100">
+    <div class="container-fluid flex-grow-1">
         <div class="router-wrapper">
             <router-outlet></router-outlet>
         </div>
     </div>
 </body>
 
-<footer class="bg-white" style="padding: 20px;">
-    <div class="h-25">        
-        <p class="text-center">© sidsuryvanshi18&#64;gmail.com</p>
+<footer class="text-center text-lg-start bg-white mt-auto ">
+    <div class="container p-4">
+        <div class="row">
+            <!-- <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase" > <a href="https://chatgpt.com/" class="text-dark"></a>CHATGPT</h5>
+
+                <ul class="list-unstyled mb-0">
+                    <li>
+                        <a href="https://chatgpt.com/" class="text-dark">CHATGPT</a>
+                    </li>
+                </ul>
+            </div> -->
+
+            <!-- <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase mb-0">Links</h5>
+
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="#!" class="text-dark">Link 1</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase">Links</h5>
+
+                <ul class="list-unstyled mb-0">
+                    <li>
+                        <a href="#!" class="text-dark">Link 1</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase mb-0">Links</h5>
+
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="#!" class="text-dark">Link 1</a>
+                    </li>
+                </ul>
+            </div> -->
+        </div>
+        <p class="h-25">
+            © sidsuryvanshi18&#64;gmail.com
+        </p>
     </div>
 </footer>
-
+<!-- 
 <ng-template #dynamicTemplate>
     <app-commonview></app-commonview>
-  </ng-template>
-
+</ng-template> -->

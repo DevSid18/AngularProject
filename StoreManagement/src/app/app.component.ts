@@ -29,26 +29,15 @@ export class AppComponent {
 
   @ViewChild('dynamicTemplate') tempRef!: TemplateRef<any>;
 
-  // OpenPage(page: string) {
-  //   switch (page.toLowerCase()) {
-  //     case 'home':
-  //       this.router.navigate(['/welcomepage']);
-  //       break;
-  //     case 'addcustomer':
-  //       this.router.navigate(['/customer-manage']);
-  //       break;
-  //     case 'showcustomers':
-  //       this.router.navigate(['/data-reports']);
-  //       break;
-  //   }
-  // }
   OpenPage(page: string) {
     const lowerCasePage = page.toLowerCase();
     const routes: { [key: string]: string } = {
       'home': '/welcomepage',
       'addcustomer': '/customer-manage',
       'showcustomers': '/data-reports',
-      'common': 'commonview'
+      'common': 'commonview',
+      'login': 'login' //here value match with app.routes.ts
+
     };
     const route = routes[lowerCasePage];
     if (route) {

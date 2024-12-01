@@ -1,15 +1,10 @@
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 using StoreManagementApi.Contracts;
 using OfficeOpenXml;
 using StoreManagementApi.Entity;
 using StoreManagementApi.Implimentations.Common;
-using System.Text.RegularExpressions;
-using System.Net.Mail;
-using System.Net;
 
 namespace StoreManagementApi.Implimentations
 {

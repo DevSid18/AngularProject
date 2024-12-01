@@ -25,14 +25,6 @@ export class CommonviewComponent {
       category: 'Electronics'
     };
   }
-
-  openModal() {
-    this.modalRef = this.modalService.show(this.tempRef);
-  }
-  closeModal() {
-    this.modalRef?.hide();
-  }
-
   saveProductChanges() {
     // Logic to save the changes (e.g., API call)
     console.log('Product changes saved');
