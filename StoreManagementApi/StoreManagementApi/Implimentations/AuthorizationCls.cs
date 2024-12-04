@@ -63,7 +63,7 @@ namespace StoreManagementApi.Implimentations
         {
             string? actionFlg = userReq.action.ToUpper().Equals("LOGIN") ? "GETUSERLOGIN" : "UPDTPASS";
             LoginModel? userInfo = new LoginModel();
-            SqlCommand sqlCmd = comMethod.DynamicMethod("UST_USERLOGIN_ACTIONS");
+            SqlCommand sqlCmd = comMethod.DynamicMethod("USP_USERLOGIN_ACTIONS");
             sqlCmd.Parameters.AddWithValue("@email", userReq.username);
             sqlCmd.Parameters.AddWithValue("@password", userReq.password);
             sqlCmd.Parameters.AddWithValue("@confirmPassword", userReq.confPass);

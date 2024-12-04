@@ -125,7 +125,7 @@ export class CustomerManageComponent implements OnInit {
       if (stateCode && countryCode) {
         this.locationService.getCities(stateCode, countryCode).subscribe(
           (data) => {
-            console.log('Cities fetched:', data);  // Log cities response
+            console.log('Cities fetched:', data);  // Log cities response //countryName for country // adminName1 for state //name for state
             this.cities = data.geonames || [];  // Assign the cities
           },
           (error) => {
@@ -137,6 +137,17 @@ export class CustomerManageComponent implements OnInit {
       }
     }
   }
+
+  // BindDataOfCounStaDis(event: Event): void {
+  //   const target = event.target as HTMLSelectElement;
+  //   const selectedValue = target.value;
+  //   if (selectedValue) {
+  //     const [country, state, district] = selectedValue.split(',');
+  //     this.CustomerForm.get('country')?.setValue(country);
+  //     this.CustomerForm.get('state')?.setValue(state);
+  //     this.CustomerForm.get('district')?.setValue(district);
+  //   }
+  // }
 
   // getGeolocation(): void {
   //   if (navigator.geolocation) {
@@ -177,9 +188,9 @@ export class CustomerManageComponent implements OnInit {
       contact: this.CustomerForm.get('contact')?.value,
       phyAddress: this.CustomerForm.get('phyAddress')?.value,
       action: this.CustomerForm.get('action')?.value,
-      country: this.CustomerForm.get('country')?.value.split(',')[1],
-      state: this.CustomerForm.get('state')?.value,
-      district: this.CustomerForm.get('district')?.value,
+      country: this.CustomerForm.get('district')?.value.split(',')[0],
+      state: this.CustomerForm.get('district')?.value.split(',')[1],
+      district: this.CustomerForm.get('district')?.value.split(',')[2],
       gender: this.CustomerForm.get('gender')?.value,
     };
     if (this.isValid(Customer)) {
