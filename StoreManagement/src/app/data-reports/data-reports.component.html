@@ -5,44 +5,8 @@
         </div>
 
         <ag-grid-angular class="ag-theme-quartz" style="height: 500px; width: 100%;" [rowData]="customerInfos"
-            [columnDefs]="colDefs" [gridOptions]="gridOptions">
+            [columnDefs]="colDefs" [gridOptions]="gridOptions" [defaultColDef]="defaultColDef"
+            (gridReady)="onGridReady($event)">
         </ag-grid-angular>
-
-
-
-
-        <!-- <div class="shadow-lg p-3 mb-5 bg-white">
-            <table class="table table-bordered table-stripped">
-                <thead>
-                    <tr>
-                        <th class="viewHeaderCss">First Name</th>
-                        <th class="viewHeaderCss">Middle Name</th>
-                        <th class="viewHeaderCss">Last Name</th>
-                        <th class="viewHeaderCss">Email</th>
-                        <th class="viewHeaderCss">Contact</th>
-                        <th class="viewHeaderCss">Physical Address</th>
-                        <th class="viewHeaderCss">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let customer of customerInfos">
-                        <td>{{customer.firstName}}</td>
-                        <td>{{customer.middleName}}</td>
-                        <td>{{customer.lastName}}</td>
-                        <td>{{customer.email}}</td>
-                        <td>{{customer.contact}}</td>
-                        <td>{{customer.phyAddress}}</td>
-                        <td>
-                            <button type="button" class="btn btn-warning text-uppercase"
-                                (click)="GetUserInfo(customer.customerId,'edit')">edit</button>
-                            <button type="button" class="btn btn-info text-uppercase ml-1"
-                                (click)="GetUserInfo(customer.customerId, 'view')">view</button>
-                            <button type="button" class="btn btn-danger text-uppercase ml-1"
-                                (click)="GetUserInfo(customer.customerId, 'delete')">delete</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div> -->
     </div>
 </body>
