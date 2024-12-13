@@ -4,7 +4,6 @@ import { CustInformation } from '../StoreEntity/CustInformation';
 import { CommonModule } from '@angular/common';
 import { CustomerService } from './customer.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import Swal from 'sweetalert2';
 import { CommonService } from '../CommonServices/common.service';
 import { LocationService } from '../CommonServices/location.service';
 

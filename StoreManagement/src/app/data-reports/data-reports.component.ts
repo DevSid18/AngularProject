@@ -4,13 +4,20 @@ import { CommonModule } from '@angular/common';
 import { CustomerService } from '../customer-manage/customer.service';
 import { Router } from '@angular/router';
 import { ColDef, GridOptions } from 'ag-grid-community';
+import { ICellRendererParams } from 'ag-grid-community';
 import { AgGridAngular, AgGridModule } from 'ag-grid-angular';
-import { state } from '@angular/animations';
+
+
+interface MyGridOptions extends GridOptions {
+  frameworkComponents: {
+    actionCellRenderer: any; 
+  };
+}
 
 @Component({
   selector: 'app-data-reports',
   standalone: true,
-  imports: [CommonModule, AgGridModule, AgGridAngular],
+  imports: [CommonModule, AgGridAngular, AgGridModule],
   templateUrl: './data-reports.component.html',
   styleUrls: ['./data-reports.component.css']
 })
@@ -20,19 +27,32 @@ export class DataReportsComponent implements OnInit {
   custId: number = 0;
   action?: string = "";
   isValidSend: boolean = false;
+  private gridApi: any;
+  private columnApi: any;
 
   constructor(private customerService: CustomerService, private router: Router) { }
 
   ngOnInit(): void {
     this.CustomerDetails();
-  }
 
+    const gridOptions: MyGridOptions = {
+      onGridReady: (params) => {
+        this.gridApi = params.api;
+        // this.columnApi = params.columnApi;
+      },
+      frameworkComponents: {
+        actionCellRenderer: this.actionCellRenderer.bind(this),
+      },
+    };
+  }
   rowData = this.customerInfos;
+
   colDefs: ColDef[] = [
     {
       headerName: "Customer Name",
       field: "firstName",
-      width: 150
+      width: 150,
+      checkboxSelection: true,
     },
     {
       headerName: "Email",
@@ -42,11 +62,16 @@ export class DataReportsComponent implements OnInit {
     {
       headerName: "Contact",
       field: "contact",
-      width: 50
     },
     {
       headerName: "Address",
       field: "phyAddress"
+    },
+    {
+      headerName: "Actions",
+      field: "actions",
+      cellRenderer: 'actionCellRenderer', // Set custom cell renderer for actions
+      width: 120
     }
   ];
   gridOptions: GridOptions = {
@@ -54,6 +79,12 @@ export class DataReportsComponent implements OnInit {
       params.api.sizeColumnsToFit();
     }
   };
+  defaultColDef: ColDef = {
+    flex: 1,
+    filter: true,
+    editable: true,
+    sortable: true
+  }
 
   CustomerDetails() {
     const custInfo: CustInformation = {
@@ -94,6 +125,24 @@ export class DataReportsComponent implements OnInit {
     this.custId = id,
       this.action = action;
     this.CustomerDetails();
+  }
+
+  onGridReady(event: any): void {
+    this.gridApi = event.api;
+    this.columnApi = event.columnApi;
+    const obj = this.gridApi.getColumn;
+  }
+  actionCellRenderer(params: ICellRendererParams) {``
+    const button = document.createElement('button');
+    button.innerHTML = 'Edit';
+    button.classList.add('btn', 'btn-primary'); 
+    button.addEventListener('click', () => this.onEditClick(params));
+    return button;
+  }
+  onEditClick(params: ICellRendererParams) {
+    const customerData = params.data; // This is the data of the selected row
+    console.log('Edit customer:', customerData);
+    this.router.navigate(['/edit', customerData.id]); // Assuming you have a route for editing
   }
 }
 
