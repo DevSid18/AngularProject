@@ -1,28 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { CustInformation } from '../StoreEntity/CustInformation';
-import { CommonModule } from '@angular/common';
-import { CustomerService } from '../customer-manage/customer.service';
-import { Router } from '@angular/router';
-import { ColDef, GridOptions } from 'ag-grid-community';
-import { ICellRendererParams } from 'ag-grid-community';
-import { AgGridAngular, AgGridModule } from 'ag-grid-angular';
+import { CommonModule } from "@angular/common";
+import { Component, OnInit } from "@angular/core";
+import { AgGridAngular, AgGridModule } from "ag-grid-angular";
+import type { ColDef, GridOptions, ICellRendererParams } from "ag-grid-community";
+import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
+import { CustInformation } from "../StoreEntity/CustInformation";
+import { CustomerService } from "../customer-manage/customer.service";
+import { Router } from "@angular/router";
 
-
+ModuleRegistry.registerModules([AllCommunityModule]);
 interface MyGridOptions extends GridOptions {
   frameworkComponents: {
-    actionCellRenderer: any; 
+    actionCellRenderer: any;
   };
 }
-
 @Component({
   selector: 'app-data-reports',
   standalone: true,
-  imports: [CommonModule, AgGridAngular, AgGridModule],
+  imports: [CommonModule, AgGridAngular, AgGridModule,],
   templateUrl: './data-reports.component.html',
   styleUrls: ['./data-reports.component.css']
 })
 export class DataReportsComponent implements OnInit {
-
   customerInfos: CustInformation[] = [];
   custId: number = 0;
   action?: string = "";
@@ -48,43 +46,32 @@ export class DataReportsComponent implements OnInit {
   rowData = this.customerInfos;
 
   colDefs: ColDef[] = [
+    { headerName: 'Customer Name', field: 'firstName', width: 150, checkboxSelection: true },
+    { headerName: 'Email', field: 'email', width: 100 },
+    { headerName: 'Contact', field: 'contact' },
+    { headerName: 'Address', field: 'phyAddress' },
     {
-      headerName: "Customer Name",
-      field: "firstName",
-      width: 150,
-      checkboxSelection: true,
-    },
-    {
-      headerName: "Email",
-      field: "email",
-      width: 100
-    },
-    {
-      headerName: "Contact",
-      field: "contact",
-    },
-    {
-      headerName: "Address",
-      field: "phyAddress"
-    },
-    {
-      headerName: "Actions",
-      field: "actions",
-      cellRenderer: 'actionCellRenderer', // Set custom cell renderer for actions
+      headerName: 'Actions',
+      field: 'actions',
+      cellRenderer: 'actionCellRenderer',
       width: 120
     }
   ];
+
   gridOptions: GridOptions = {
+    rowModelType: 'clientSide',
+    theme: 'legacy', 
     onGridReady: (params) => {
-      params.api.sizeColumnsToFit();
-    }
+      this.gridApi = params.api;
+    },
   };
+
   defaultColDef: ColDef = {
     flex: 1,
     filter: true,
     editable: true,
     sortable: true
-  }
+  };
 
   CustomerDetails() {
     const custInfo: CustInformation = {
@@ -132,18 +119,23 @@ export class DataReportsComponent implements OnInit {
     this.columnApi = event.columnApi;
     const obj = this.gridApi.getColumn;
   }
-  actionCellRenderer(params: ICellRendererParams) {``
+  actionCellRenderer(params: ICellRendererParams) {
+    ``
     const button = document.createElement('button');
     button.innerHTML = 'Edit';
-    button.classList.add('btn', 'btn-primary'); 
+    button.classList.add('btn', 'btn-primary');
     button.addEventListener('click', () => this.onEditClick(params));
     return button;
   }
   onEditClick(params: ICellRendererParams) {
-    const customerData = params.data; // This is the data of the selected row
+    const customerData = params.data;
     console.log('Edit customer:', customerData);
-    this.router.navigate(['/edit', customerData.id]); // Assuming you have a route for editing
+
+    if (customerData && customerData.customerId) {
+      this.router.navigate(['/edit', customerData.customerId]);
+    } else {
+      console.error('Customer ID is missing');
+    }
   }
+
 }
-
-
