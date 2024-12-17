@@ -7,6 +7,7 @@ import { CustInformation } from "../StoreEntity/CustInformation";
 import { CustomerService } from "../customer-manage/customer.service";
 import { Router } from "@angular/router";
 
+
 ModuleRegistry.registerModules([AllCommunityModule]);
 interface MyGridOptions extends GridOptions {
   frameworkComponents: {
@@ -16,9 +17,10 @@ interface MyGridOptions extends GridOptions {
 @Component({
   selector: 'app-data-reports',
   standalone: true,
-  imports: [CommonModule, AgGridAngular, AgGridModule,],
+  imports: [CommonModule],
   templateUrl: './data-reports.component.html',
-  styleUrls: ['./data-reports.component.css']
+  styleUrls: ['./data-reports.component.css'],
+
 })
 export class DataReportsComponent implements OnInit {
   customerInfos: CustInformation[] = [];
